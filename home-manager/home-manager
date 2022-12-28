@@ -212,7 +212,7 @@ function doBuildFlake() {
         extraArgs=("${extraArgs[@]}" "--verbose")
     fi
 
-    nix build \
+    nix build --debugger \
         "${extraArgs[@]}" \
         "${PASSTHROUGH_OPTS[@]}"
 }
