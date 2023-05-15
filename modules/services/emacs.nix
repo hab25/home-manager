@@ -81,14 +81,18 @@ in {
       enable = mkEnableOption "systemd socket activation for the Emacs service";
     };
 
-    startWithUserSession = lib.mkOption {
-      type = lib.types.bool;
+    startWithUserSession = mkOption {
+      type = with types; either bool (enum [ "graphical" ]);
       default = !cfg.socketActivation.enable;
       defaultText =
         literalExpression "!config.services.emacs.socketActivation.enable";
-      example = true;
+      example = "graphical";
       description = ''
-        Whether to launch Emacs service with the systemd user session.
+        Whether to launch Emacs service with the systemd user session. If it is
+        <literal>true</literal>, Emacs service is started by
+        <literal>default.target</literal>. If it is
+        <literal>"graphical"</literal>, Emacs service is started by
+        <literal>graphical-session.target</literal>.
       '';
     };
 
@@ -115,6 +119,11 @@ in {
           Description = "Emacs text editor";
           Documentation =
             "info:emacs man:emacs(1) https://gnu.org/software/emacs/";
+
+          After = optional (cfg.startWithUserSession == "graphical")
+            "graphical-session.target";
+          PartOf = optional (cfg.startWithUserSession == "graphical")
+            "graphical-session.target";
 
           # Avoid killing the Emacs session, which may be full of
           # unsaved buffers.
@@ -156,8 +165,15 @@ in {
           ExecStopPost =
             "${pkgs.coreutils}/bin/chmod --changes +w ${socketDir}";
         };
-      } // optionalAttrs (cfg.startWithUserSession) {
-        Install = { WantedBy = [ "default.target" ]; };
+      } // optionalAttrs (cfg.startWithUserSession != false) {
+        Install = {
+          WantedBy = [
+            (if cfg.startWithUserSession == true then
+              "default.target"
+            else
+              "graphical-session.target")
+          ];
+        };
       };
 
       home = {

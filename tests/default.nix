@@ -73,6 +73,7 @@ import nmt {
     ./modules/programs/fish
     ./modules/programs/gallery-dl
     ./modules/programs/gh
+    ./modules/programs/git-cliff
     ./modules/programs/git
     ./modules/programs/gpg
     ./modules/programs/helix
@@ -85,6 +86,7 @@ import nmt {
     ./modules/programs/k9s
     ./modules/programs/kakoune
     ./modules/programs/kitty
+    ./modules/programs/ledger
     ./modules/programs/less
     ./modules/programs/lf
     ./modules/programs/lieer
@@ -126,10 +128,12 @@ import nmt {
     ./modules/programs/tmate
     ./modules/programs/tmux
     ./modules/programs/topgrade
+    ./modules/programs/translate-shell
     ./modules/programs/vim-vint
     ./modules/programs/vscode
     ./modules/programs/watson
     ./modules/programs/wezterm
+    ./modules/programs/zellij
     ./modules/programs/zplug
     ./modules/programs/zsh
     ./modules/xresources
@@ -149,9 +153,11 @@ import nmt {
     ./modules/misc/xsession
     ./modules/programs/abook
     ./modules/programs/autorandr
+    ./modules/programs/beets  # One test relies on services.mpd
     ./modules/programs/borgmatic
     ./modules/programs/firefox
     ./modules/programs/foot
+    ./modules/programs/fuzzel
     ./modules/programs/getmail
     ./modules/programs/gnome-terminal
     ./modules/programs/hexchat

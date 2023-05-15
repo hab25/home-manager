@@ -35,6 +35,10 @@ with lib;
             }
           ];
           dynamicForwards = [{ port = 2839; }];
+          setEnv = {
+            FOO = "foo12";
+            BAR = "_bar_ 42";
+          };
         };
 
         "* !github.com" = {
@@ -46,6 +50,8 @@ with lib;
 
     home.file.assertions.text = builtins.toJSON
       (map (a: a.message) (filter (a: !a.assertion) config.assertions));
+
+    test.stubs.openssh = { };
 
     nmt.script = ''
       assertFileExists home-files/.ssh/config

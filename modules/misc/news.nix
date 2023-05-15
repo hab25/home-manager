@@ -103,7 +103,7 @@ in
       entries = mkOption {
         internal = true;
         type = types.listOf entryModule;
-        default = [];
+        default = [ ];
         description = "News entries.";
       };
     };
@@ -999,6 +999,38 @@ in
         time = "2023-04-28T19:59:23+00:00";
         message = ''
           A new module is available: 'programs.jujutsu'.
+        '';
+      }
+
+      {
+        time = "2023-05-09T16:06:56+00:00";
+        message = ''
+          A new module is available: 'programs.git-cliff'.
+        '';
+      }
+
+      {
+        time = "2023-05-12T21:31:05+00:00";
+        message = ''
+          A new module is available: 'programs.translate-shell'.
+        '';
+      }
+
+      {
+        time = "2023-05-13T13:51:18+00:00";
+        condition = hostPlatform.isLinux;
+        message = ''
+          A new module is available: 'programs.fuzzel'.
+        '';
+      }
+
+      {
+        time = "2023-05-13T14:34:21+00:00";
+        condition = config.programs.ssh.enable;
+        message = ''
+          The module 'programs.ssh' now installs an SSH client. The installed
+          client is controlled by the 'programs.ssh.package` option, which
+          defaults to 'pkgs.openssh'.
         '';
       }
     ];

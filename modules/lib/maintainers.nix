@@ -363,6 +363,15 @@
     github = "lukasngl";
     githubId = 69244516;
   };
+  soywod = {
+    name = "Clément DOUIN";
+    email = "clement.douin@posteo.net";
+    matrix = "@soywod:matrix.org";
+    github = "soywod";
+    githubId = 10437171;
+    keys =
+      [{ fingerprint = "75F0 AB7C FE01 D077 AEE6  CAFD 353E 4A18 EE0F AB72"; }];
+  };
   toastal = {
     email = "toastal+nix@posteo.net";
     matrix = "@toastal:matrix.org";
@@ -378,5 +387,11 @@
     github = "tomodachi94";
     githubId = 68489118;
     name = "tomodachi94";
+  };
+  NateCox = {
+    name = "Nate Cox";
+    email = "nate@natecox.dev";
+    github = "natecox";
+    githubId = 2782695;
   };
 }

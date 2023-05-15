@@ -76,10 +76,12 @@ let
     ./programs/firefox.nix
     ./programs/fish.nix
     ./programs/foot.nix
+    ./programs/fuzzel.nix
     ./programs/fzf.nix
     ./programs/gallery-dl.nix
     ./programs/getmail.nix
     ./programs/gh.nix
+    ./programs/git-cliff.nix
     ./programs/git.nix
     ./programs/gitui.nix
     ./programs/gnome-terminal.nix
@@ -187,6 +189,7 @@ let
     ./programs/tmate.nix
     ./programs/tmux.nix
     ./programs/topgrade.nix
+    ./programs/translate-shell.nix
     ./programs/urxvt.nix
     ./programs/vim.nix
     ./programs/vim-vint.nix
