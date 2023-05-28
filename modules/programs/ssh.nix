@@ -78,7 +78,7 @@ let
           </citerefentry>
           for <literal>Host</literal> block details.
           This option is ignored if
-          <option>ssh.matchBlocks.*.matcht</option>
+          <option>ssh.matchBlocks.*.match</option>
           if defined.
         '';
       };
@@ -361,7 +361,11 @@ in
   options.programs.ssh = {
     enable = mkEnableOption "SSH client configuration";
 
-    package = mkPackageOption pkgs "openssh" { };
+    package = mkPackageOption pkgs "openssh" {
+      nullable = true;
+      default = null;
+      extraDescription = "By default, the client provided by your system is used.";
+    };
 
     forwardAgent = mkOption {
       default = false;
@@ -527,7 +531,7 @@ in
       }
     ];
 
-    home.packages = [ cfg.package ];
+    home.packages = optional (cfg.package != null) cfg.package;
 
     home.file.".ssh/config".text =
       let
