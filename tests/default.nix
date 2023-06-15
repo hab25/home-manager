@@ -53,7 +53,7 @@ import nmt {
     ./modules/home-environment
     ./modules/misc/fontconfig
     ./modules/misc/nix
-    ./modules/misc/specialization
+    ./modules/misc/specialisation
     ./modules/programs/aerc
     ./modules/programs/alacritty
     ./modules/programs/alot
@@ -66,6 +66,7 @@ import nmt {
     ./modules/programs/broot
     ./modules/programs/browserpass
     ./modules/programs/btop
+    ./modules/programs/comodoro
     ./modules/programs/dircolors
     ./modules/programs/direnv
     ./modules/programs/emacs
@@ -115,6 +116,8 @@ import nmt {
     ./modules/programs/pubs
     ./modules/programs/qutebrowser
     ./modules/programs/readline
+    ./modules/programs/ripgrep
+    ./modules/programs/rtx
     ./modules/programs/sagemath
     ./modules/programs/sbt
     ./modules/programs/scmpuff
@@ -155,6 +158,7 @@ import nmt {
     ./modules/programs/autorandr
     ./modules/programs/beets  # One test relies on services.mpd
     ./modules/programs/borgmatic
+    ./modules/programs/boxxy
     ./modules/programs/firefox
     ./modules/programs/foot
     ./modules/programs/fuzzel
@@ -162,6 +166,7 @@ import nmt {
     ./modules/programs/gnome-terminal
     ./modules/programs/hexchat
     ./modules/programs/i3status-rust
+    ./modules/programs/imv
     ./modules/programs/kodi
     ./modules/programs/looking-glass-client
     ./modules/programs/mangohud
@@ -182,6 +187,7 @@ import nmt {
     ./modules/services/borgmatic
     ./modules/services/cachix-agent
     ./modules/services/clipman
+    ./modules/services/comodoro
     ./modules/services/devilspie2
     ./modules/services/dropbox
     ./modules/services/emacs

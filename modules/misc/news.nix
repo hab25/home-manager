@@ -1033,10 +1033,82 @@ in
           defaults to 'null'.
         '';
       }
+
       {
         time = "2023-05-18T21:03:30+00:00";
         message = ''
           A new module is available: 'programs.script-directory'.
+        '';
+      }
+
+      {
+        time = "2023-06-03T22:19:32+00:00";
+        message = ''
+          A new module is available: 'programs.ripgrep'.
+        '';
+      }
+
+      {
+        time = "2023-06-07T06:01:16+00:00";
+        message = ''
+          A new module is available: 'programs.rtx'.
+        '';
+      }
+
+      {
+        time = "2023-06-07T12:16:55+00:00";
+        condition = hostPlatform.isLinux;
+        message = ''
+          A new module is available: 'programs.imv'.
+        '';
+      }
+
+      {
+        time = "2023-06-09T19:13:39+00:00";
+        condition = hostPlatform.isLinux;
+        message = ''
+          A new module is available: 'programs.boxxy'.
+        '';
+      }
+
+      {
+        time = "2020-04-26T13:32:17+00:00";
+        message = ''
+          A number of new modules are available:
+
+            - 'accounts.calendar',
+            - 'accounts.contact',
+            - 'programs.khal',
+            - 'programs.vdirsyncer', and
+            - 'services.vdirsyncer' (Linux only).
+
+          The two first modules offer a number of options for
+          configuring calendar and contact accounts. This includes,
+          for example, information about carddav and caldav servers.
+
+          The khal and vdirsyncer modules make use of this new account
+          infrastructure.
+
+          Note, these module are still somewhat experimental and their
+          structure should not be seen as final, some modifications
+          may be necessary as new modules are added.
+        '';
+      }
+
+      {
+        time = "2023-06-14T21:25:34+00:00";
+        message = ''
+          A new module is available: 'programs.git-credential-oauth'.
+        '';
+      }
+
+      {
+        time = "2023-06-14T21:41:22+00:00";
+        message = ''
+          Two new modules are available:
+
+            - 'programs.comodoro' and
+            - 'services.comodoro'
         '';
       }
     ];

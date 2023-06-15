@@ -159,6 +159,12 @@
     github = "mifom";
     githubId = 23462908;
   };
+  nikp123 = {
+    name = "nikp123";
+    email = "nikp123@users.noreply.github.com";
+    github = "nikp123";
+    githubId = 4696350;
+  };
   nilp0inter = {
     name = "Roberto Abdelkader Martínez Pérez";
     email = "robertomartinezp@gmail.com";
@@ -329,6 +335,12 @@
     github = "sebtm";
     githubId = 17243347;
   };
+  rasmus-kirk = {
+    name = "Rasmus Kirk";
+    email = "mail@rasmuskirk.com";
+    github = "rasmus-kirk";
+    githubId = 57323869;
+  };
   rosuavio = {
     name = "Rosario Pulella";
     email = "RosarioPulella@gmail.com";
@@ -393,5 +405,17 @@
     email = "nate@natecox.dev";
     github = "natecox";
     githubId = 2782695;
+  };
+  pedorich-n = {
+    name = "Mykyta Pedorich";
+    email = "pedorich.n@gmail.com";
+    github = "pedorich-n";
+    githubId = 15573098;
+  };
+  liyangau = {
+    name = "Li Yang";
+    email = "d@aufomm.com";
+    github = "liyangau";
+    githubId = 71299093;
   };
 }
