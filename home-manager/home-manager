@@ -496,7 +496,7 @@ function doBuildFlake() {
         extraArgs=("${extraArgs[@]}" "--verbose")
     fi
 
-    nix build --debugger --ignore-try \
+    nix build --accept-flake-config --debugger --ignore-try \
         "${extraArgs[@]}" \
         "${PASSTHROUGH_OPTS[@]}"
 }
