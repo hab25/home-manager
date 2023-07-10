@@ -201,7 +201,7 @@ function setFlakeAttribute() {
                 # Check FQDN, long, and short hostnames; long first to preserve
                 # pre-existing behaviour in case both happen to be defined.
                 for n in "$USER@$(hostname -f)" "$USER@$(hostname)" "$USER@$(hostname -s)"; do
-                    if [[ "$(nix eval "$flake#homeConfigurations" --apply "x: x ? \"$n\"")" == "true" ]]; then
+                    if [[ "$(nix --accept-flake-config eval "$flake#homeConfigurations" --apply "x: x ? \"$n\"")" == "true" ]]; then
                         name="$n"
                         if [[ -v VERBOSE ]]; then
                             echo "Using flake homeConfiguration for $name"
@@ -434,7 +434,7 @@ EOF
             _i 'Creating %s...' "$flakeFile"
 
             local nixSystem
-            nixSystem=$(nix eval --expr builtins.currentSystem --raw --impure)
+            nixSystem=$(nix --accept-flake-config eval --expr builtins.currentSystem --raw --impure)
 
             mkdir -p "$confDir"
             cat > "$flakeFile" <<EOF
@@ -545,7 +545,7 @@ function doBuildFlake() {
         extraArgs=("${extraArgs[@]}" "--verbose")
     fi
 
-    nix build \
+    nix --accept-flake-config build --debugger --ignore-try \
         "${extraArgs[@]}" \
         "${PASSTHROUGH_OPTS[@]}"
 }
