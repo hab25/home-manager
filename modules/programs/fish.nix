@@ -12,10 +12,10 @@ let
         type = types.path;
         description = ''
           Path to the plugin folder.
-          </para><para>
+
           Relevant pieces will be added to the fish function path and
-          the completion path. The <filename>init.fish</filename> and
-          <filename>key_binding.fish</filename> files are sourced if
+          the completion path. The {file}`init.fish` and
+          {file}`key_binding.fish` files are sourced if
           they exist.
         '';
       };
@@ -89,7 +89,7 @@ let
         default = null;
         description = ''
           Tells fish to run this function when the job with the specified group
-          ID exits. Instead of a PID, the stringer <literal>caller</literal> can
+          ID exits. Instead of a PID, the stringer `caller` can
           be specified. This is only legal when in a command substitution, and
           will result in the handler being triggered by the exit of the job
           which created this command substitution.
@@ -103,8 +103,8 @@ let
         description = ''
           Tells fish to run this function when the fish child process with the
           specified process ID exits. Instead of a PID, for backwards
-          compatibility, <literal>%self</literal> can be specified as an alias
-          for <literal>$fish_pid</literal>, and the function will be run when
+          compatibility, `%self` can be specified as an alias
+          for `$fish_pid`, and the function will be run when
           the current fish instance exits.
         '';
       };
@@ -138,9 +138,76 @@ let
     };
   };
 
-  abbrsStr = concatStringsSep "\n"
-    (mapAttrsToList (k: v: "abbr --add --global -- ${k} ${escapeShellArg v}")
-      cfg.shellAbbrs);
+  abbrModule = types.submodule {
+    options = {
+      expansion = mkOption {
+        type = with types; nullOr str;
+        default = null;
+        description = ''
+          The command expanded by an abbreviation.
+        '';
+      };
+
+      position = mkOption {
+        type = with types; nullOr str;
+        default = null;
+        example = "anywhere";
+        description = ''
+          If the position is "command", the abbreviation expands only if
+          the position is a command. If it is "anywhere", the abbreviation
+          expands anywhere.
+        '';
+      };
+
+      regex = mkOption {
+        type = with types; nullOr str;
+        default = null;
+        description = ''
+          The regular expression pattern matched instead of the literal name.
+        '';
+      };
+
+      setCursor = mkOption {
+        type = with types; (either bool str);
+        default = false;
+        description = ''
+          The marker indicates the position of the cursor when the abbreviation
+          is expanded. When setCursor is true, the marker is set with a default
+          value of "%".
+        '';
+      };
+
+      function = mkOption {
+        type = with types; nullOr str;
+        default = null;
+        description = ''
+          The fish function expanded instead of a literal string.
+        '';
+      };
+    };
+  };
+
+  abbrsStr = concatStringsSep "\n" (mapAttrsToList (name: def:
+    let
+      mods = with def;
+        cli.toGNUCommandLineShell {
+          mkOption = k: v:
+            if v == null then
+              [ ]
+            else if k == "set-cursor" then
+              [ "--${k}=${lib.generators.mkValueStringDefault { } v}" ]
+            else [
+              "--${k}"
+              (lib.generators.mkValueStringDefault { } v)
+            ];
+        } {
+          inherit position regex function;
+          set-cursor = setCursor;
+        };
+      modifiers = if isAttrs def then mods else "";
+      expansion = if isAttrs def then def.expansion else def;
+    in "abbr --add ${modifiers} -- ${name}"
+    + optionalString (expansion != null) " \"${expansion}\"") cfg.shellAbbrs);
 
   aliasesStr = concatStringsSep "\n"
     (mapAttrsToList (k: v: "alias ${k} ${escapeShellArg v}") cfg.shellAliases);
@@ -154,7 +221,7 @@ let
 
   translatedSessionVariables =
     pkgs.runCommandLocal "hm-session-vars.fish" { } ''
-      ${pkgs.babelfish}/bin/babelfish \
+      ${pkgs.buildPackages.babelfish}/bin/babelfish \
         <${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh \
         >$out
     '';
@@ -199,12 +266,18 @@ in {
       };
 
       shellAbbrs = mkOption {
-        type = with types; attrsOf str;
+        type = with types; attrsOf (either str abbrModule);
         default = { };
-        example = {
-          l = "less";
-          gco = "git checkout";
-        };
+        example = literalExpression ''
+          {
+            l = "less";
+            gco = "git checkout";
+            "-C" = {
+              position = "anywhere";
+              expansion = "--color";
+            };
+          }
+        '';
         description = ''
           An attribute set that maps aliases (the top level attribute names
           in this option) to abbreviations. Abbreviations are expanded with
@@ -270,7 +343,7 @@ in {
       '';
       description = ''
         The plugins to source in
-        <filename>conf.d/99plugins.fish</filename>.
+        {file}`conf.d/99plugins.fish`.
       '';
     };
 
@@ -289,7 +362,7 @@ in {
       '';
       description = ''
         Basic functions to add to fish. For more information see
-        <link xlink:href="https://fishshell.com/docs/current/cmds/function.html"/>.
+        <https://fishshell.com/docs/current/cmds/function.html>.
       '';
     };
   };
@@ -320,20 +393,29 @@ in {
             ${postBuild}
           '';
 
-        generateCompletions = package:
-          pkgs.runCommand "${package.name}-fish-completions" {
-            src = package;
-            nativeBuildInputs = [ pkgs.python3 ];
-            buildInputs = [ cfg.package ];
-            preferLocalBuild = true;
-          } ''
-            mkdir -p $out
+        generateCompletions = let
+          getName = attrs:
+            attrs.name or "${attrs.pname or "«pname-missing»"}-${
+              attrs.version or "«version-missing»"
+            }";
+        in package:
+        pkgs.runCommand "${getName package}-fish-completions" {
+          srcs = [ package ] ++ filter (p: p != null)
+            (builtins.map (outName: package.${outName} or null)
+              config.home.extraOutputsToInstall);
+          nativeBuildInputs = [ pkgs.python3 ];
+          buildInputs = [ cfg.package ];
+          preferLocalBuild = true;
+        } ''
+          mkdir -p $out
+          for src in $srcs; do
             if [ -d $src/share/man ]; then
-              find $src/share/man -type f \
+              find -L $src/share/man -type f \
                 | xargs python ${cfg.package}/share/fish/tools/create_manpage_completions.py --directory $out \
                 > /dev/null
             fi
-          '';
+          done
+        '';
       in destructiveSymlinkJoin {
         name = "${config.home.username}-fish-completions";
         paths =
