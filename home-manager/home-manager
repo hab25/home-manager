@@ -127,6 +127,11 @@ function setHomeManagerNixPath() {
 
 # Sets some useful Home Manager related paths as global read-only variables.
 function setHomeManagerPathVariables() {
+    # If called twice then just exit early.
+    if [[ -v HM_DATA_HOME ]]; then
+        return
+    fi
+
     declare -r globalNixStateDir="${NIX_STATE_DIR:-/nix/var/nix}"
     declare -r globalProfilesDir="$globalNixStateDir/profiles/per-user/$USER"
     declare -r globalGcrootsDir="$globalNixStateDir/gcroots/per-user/$USER"
@@ -364,8 +369,10 @@ $xdgVars
     # '';
   };
 
-  # You can also manage environment variables but you will have to manually
-  # source
+  # Home Manager can also manage your environment variables through
+  # 'home.sessionVariables'. If you don't want to manage your shell through Home
+  # Manager then you have to manually source 'hm-session-vars.sh' located at
+  # either
   #
   #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
   #
@@ -373,7 +380,6 @@ $xdgVars
   #
   #  /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
   #
-  # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
@@ -623,6 +629,8 @@ function doSwitch() {
 }
 
 function doListGens() {
+    setHomeManagerPathVariables
+
     # Whether to colorize the generations output.
     local color="never"
     if [[ ! -v NO_COLOR && -t 1 ]]; then
@@ -640,6 +648,7 @@ function doListGens() {
 # Removes linked generations. Takes as arguments identifiers of
 # generations to remove.
 function doRmGenerations() {
+    setHomeManagerPathVariables
     setVerboseAndDryRun
 
     pushd "$HM_PROFILE_DIR" > /dev/null
@@ -661,6 +670,8 @@ function doRmGenerations() {
 }
 
 function doExpireGenerations() {
+    setHomeManagerPathVariables
+
     local generations
     generations="$( \
         find "$HM_PROFILE_DIR" -name 'home-manager-*-link' -not -newermt "$1" \
@@ -759,6 +770,7 @@ function doShowNews() {
 }
 
 function doUninstall() {
+    setHomeManagerPathVariables
     setVerboseAndDryRun
     setNixProfileCommands
 
@@ -892,8 +904,6 @@ PASSTHROUGH_OPTS=()
 COMMAND=""
 COMMAND_ARGS=()
 FLAKE_ARG=""
-
-setHomeManagerPathVariables
 
 while [[ $# -gt 0 ]]; do
     opt="$1"
