@@ -1309,6 +1309,84 @@ in
           A new module is available: 'programs.ruff'.
         '';
       }
+
+      {
+        time = "2023-11-26T23:18:01+00:00";
+        condition = hostPlatform.isLinux;
+        message = ''
+          A new module is available: 'services.signaturepdf'.
+        '';
+      }
+
+      {
+        time = "2023-12-10T08:43:02+00:00";
+        condition = config.wayland.windowManager.hyprland.settings ? source;
+        message = ''
+          Entries in
+
+            wayland.windowManager.hyprland.settings.source
+
+          are now placed at the start of the configuration file. If you relied
+          on the previous placement of the 'source' entries, please set
+
+             wayland.windowManager.hyprland.sourceFirst = false
+
+          to keep the previous behaviour.
+        '';
+      }
+
+      {
+        time = "2023-12-19T22:57:52+00:00";
+        message = ''
+          A new module is available: 'programs.sapling'.
+        '';
+      }
+
+      {
+        time = "2023-12-20T11:41:10+00:00";
+        message = ''
+          A new module is available: 'programs.gradle'.
+        '';
+      }
+
+      {
+        time = "2023-12-28T08:28:26+00:00";
+        condition = hostPlatform.isLinux;
+        message = ''
+          A new module is available: 'services.osmscout-server'.
+        '';
+      }
+
+      {
+        time = "2023-12-28T13:01:15+00:00";
+        message = ''
+          A new module is available: 'programs.sftpman'.
+        '';
+      }
+
+      {
+        time = "2023-12-29T08:22:40+00:00";
+        condition = hostPlatform.isLinux;
+        message = ''
+          A new module is available: 'programs.bemenu'.
+        '';
+      }
+
+      {
+        time = "2024-01-01T09:09:42+00:00";
+        condition = hostPlatform.isLinux;
+        message = ''
+          A new module is available: 'programs.i3blocks'.
+        '';
+      }
+
+      {
+        time = "2024-01-03T19:25:09+00:00";
+        condition = hostPlatform.isLinux;
+        message = ''
+          A new module is available: 'xdg.portal'.
+        '';
+      }
     ];
   };
 }

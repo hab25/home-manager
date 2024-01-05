@@ -43,6 +43,12 @@
     github = "CarlosLoboxyz";
     githubId = 86011416;
   };
+  considerate = {
+    name = "Viktor Kronvall";
+    email = "viktor.kronvall@gmail.com";
+    github = "considerate";
+    githubId = 217918;
+  };
   cvoges12 = {
     name = "Clayton Voges";
     email = "38054771+cvoges12@users.noreply.github.com";
@@ -310,6 +316,12 @@
     email = "nurelin@users.noreply.github.com";
     github = "nurelin";
     githubId = 5276274;
+  };
+  omernaveedxyz = {
+    name = "Omer Naveed";
+    email = "omer@omernaveed.dev";
+    github = "omernaveedxyz";
+    githubId = 112912585;
   };
   otavio = {
     email = "otavio.salvador@ossystems.com.br";

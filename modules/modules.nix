@@ -42,6 +42,7 @@ let
     ./misc/xdg-desktop-entries.nix
     ./misc/xdg-mime-apps.nix
     ./misc/xdg-mime.nix
+    ./misc/xdg-portal.nix
     ./misc/xdg-system-dirs.nix
     ./misc/xdg-user-dirs.nix
     ./misc/xdg.nix
@@ -63,6 +64,7 @@ let
     ./programs/bat.nix
     ./programs/bacon.nix
     ./programs/beets.nix
+    ./programs/bemenu.nix
     ./programs/borgmatic.nix
     ./programs/bottom.nix
     ./programs/boxxy.nix
@@ -99,6 +101,7 @@ let
     ./programs/gnome-terminal.nix
     ./programs/go.nix
     ./programs/gpg.nix
+    ./programs/gradle.nix
     ./programs/granted.nix
     ./programs/havoc.nix
     ./programs/helix.nix
@@ -108,6 +111,7 @@ let
     ./programs/hstr.nix
     ./programs/htop.nix
     ./programs/hyfetch.nix
+    ./programs/i3blocks.nix
     ./programs/i3status-rust.nix
     ./programs/i3status.nix
     ./programs/imv.nix
@@ -192,10 +196,12 @@ let
     ./programs/rtx.nix
     ./programs/ruff.nix
     ./programs/sagemath.nix
+    ./programs/sapling.nix
     ./programs/sbt.nix
     ./programs/scmpuff.nix
     ./programs/script-directory.nix
     ./programs/senpai.nix
+    ./programs/sftpman.nix
     ./programs/sioyek.nix
     ./programs/skim.nix
     ./programs/sm64ex.nix
@@ -304,6 +310,7 @@ let
     ./services/nextcloud-client.nix
     ./services/notify-osd.nix
     ./services/opensnitch-ui.nix
+    ./services/osmscout-server.nix
     ./services/owncloud-client.nix
     ./services/pantalaimon.nix
     ./services/parcellite.nix
@@ -326,6 +333,7 @@ let
     ./services/safeeyes.nix
     ./services/screen-locker.nix
     ./services/sctd.nix
+    ./services/signaturepdf.nix
     ./services/spotifyd.nix
     ./services/ssh-agent.nix
     ./services/stalonetray.nix

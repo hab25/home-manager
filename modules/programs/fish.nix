@@ -207,7 +207,8 @@ let
       modifiers = if isAttrs def then mods else "";
       expansion = if isAttrs def then def.expansion else def;
     in "abbr --add ${modifiers} -- ${name}"
-    + optionalString (expansion != null) " \"${expansion}\"") cfg.shellAbbrs);
+    + optionalString (expansion != null) " ${escapeShellArg expansion}")
+    cfg.shellAbbrs);
 
   aliasesStr = concatStringsSep "\n"
     (mapAttrsToList (k: v: "alias ${k} ${escapeShellArg v}") cfg.shellAliases);
@@ -221,9 +222,11 @@ let
 
   translatedSessionVariables =
     pkgs.runCommandLocal "hm-session-vars.fish" { } ''
+      (echo "function setup_hm_session_vars;"
       ${pkgs.buildPackages.babelfish}/bin/babelfish \
-        <${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh \
-        >$out
+      <${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh
+      echo "end"
+      echo "setup_hm_session_vars") > $out
     '';
 
 in {

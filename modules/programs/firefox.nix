@@ -97,13 +97,14 @@ let
       directoryToHTML = indentLevel: directory: ''
         ${indent indentLevel}<DT>${
           if directory.toolbar then
-            ''<H3 PERSONAL_TOOLBAR_FOLDER="true">Bookmarks Toolbar''
+            ''
+              <H3 ADD_DATE="1" LAST_MODIFIED="1" PERSONAL_TOOLBAR_FOLDER="true">Bookmarks Toolbar''
           else
-            "<H3>${escapeXML directory.name}"
+            ''<H3 ADD_DATE="1" LAST_MODIFIED="1">${escapeXML directory.name}''
         }</H3>
         ${indent indentLevel}<DL><p>
         ${allItemsToHTML (indentLevel + 1) directory.bookmarks}
-        ${indent indentLevel}</p></DL>'';
+        ${indent indentLevel}</DL><p>'';
 
       itemToHTMLOrRecurse = indentLevel: item:
         if item ? "url" then
@@ -126,7 +127,7 @@ let
       <H1>Bookmarks Menu</H1>
       <DL><p>
       ${bookmarkEntries}
-      </p></DL>
+      </DL>
     '';
 
   mkNoDuplicateAssertion = entities: entityKind:
@@ -211,12 +212,12 @@ in {
         example = literalExpression ''
           pkgs.firefox.override {
             # See nixpkgs' firefox/wrapper.nix to check which options you can use
-            cfg = {
+            nativeMessagingHosts = [
               # Gnome shell native connector
-              enableGnomeExtensions = true;
+              pkgs.gnome-browser-connector
               # Tridactyl native connector
-              enableTridactylNative = true;
-            };
+              pkgs.tridactyl-native
+            ];
           }
         '';
         description = ''
@@ -377,7 +378,11 @@ in {
                     toolbar = mkOption {
                       type = types.bool;
                       default = false;
-                      description = "If directory should be shown in toolbar.";
+                      description = ''
+                        Make this the toolbar directory. Note, this does _not_
+                        mean that this directory will be added to the toolbar,
+                        this directory _is_ the toolbar.
+                      '';
                     };
                   };
                 }) // {

@@ -126,7 +126,28 @@ in {
     home.packages = [ cfg.package ];
 
     xdg.configFile."gh/config.yml".source =
-      yamlFormat.generate "gh-config.yml" cfg.settings;
+      yamlFormat.generate "gh-config.yml" ({ version = "1"; } // cfg.settings);
+
+    # Version 2.40.0+ of gh needs to migrate account formats, this needs to
+    # happen before the version = 1 is placed in the configuration file. Running
+    # `gh help` is sufficient to perform the migration. If the migration already
+    # has occurred, then this is a no-op.
+    #
+    # See https://github.com/nix-community/home-manager/issues/4744 for details.
+    home.activation.migrateGhAccounts =
+      let ghHosts = "${config.xdg.configHome}/gh/hosts.yml";
+      in hm.dag.entryBetween [ "linkGeneration" ] [ "writeBoundary" ] ''
+        if [[ ! -L "${ghHosts}" && -f "${ghHosts}" ]]; then
+          (
+            TMP_DIR=$(mktemp -d)
+            trap "rm --force --recursive $TMP_DIR" EXIT
+            cp "${ghHosts}" $TMP_DIR/
+            export GH_CONFIG_DIR=$TMP_DIR
+            $DRY_RUN_CMD ${getExe cfg.package} help 2>&1 > $DRY_RUN_NULL
+            cp $TMP_DIR/hosts.yml "${ghHosts}"
+          )
+        fi
+      '';
 
     programs.git.extraConfig.credential = mkIf cfg.gitCredentialHelper.enable
       (builtins.listToAttrs (map (host:

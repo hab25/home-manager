@@ -175,6 +175,12 @@ in {
         Extra configuration lines to add to `~/.config/hypr/hyprland.conf`.
       '';
     };
+
+    sourceFirst = lib.mkEnableOption ''
+      putting source entries at the top of the configuration
+    '' // {
+      default = true;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -222,9 +228,9 @@ in {
             inherit indent;
           };
           allFields = filterAttrs (n: v: !(isAttrs v)) attrs;
-          importantFields =
-            filterAttrs (n: _: (hasPrefix "$" n) || (hasPrefix "bezier" n))
-            allFields;
+          importantFields = filterAttrs (n: _:
+            (hasPrefix "$" n) || (hasPrefix "bezier" n) || (n == "plugin")
+            || (cfg.sourceFirst && (hasPrefix "source" n))) allFields;
           fields = builtins.removeAttrs allFields
             (mapAttrsToList (n: _: n) importantFields);
         in mkFields importantFields
@@ -237,11 +243,11 @@ in {
         + lib.optionalString (cfg.extraConfig != "") cfg.extraConfig;
 
       onChange = lib.mkIf (cfg.package != null) ''
-        (  # execute in subshell so that `shopt` won't affect other scripts
-          shopt -s nullglob  # so that nothing is done if /tmp/hypr/ does not exist or is empty
-          for instance in /tmp/hypr/*; do
-            HYPRLAND_INSTANCE_SIGNATURE=''${instance##*/} ${cfg.finalPackage}/bin/hyprctl reload config-only \
-              || true  # ignore dead instance(s)
+        ( # Execute in subshell so we don't poision environment with vars
+          # This var must be set for hyprctl to function, but the value doesn't matter.
+          export HYPRLAND_INSTANCE_SIGNATURE="bogus"
+          for i in $(${cfg.finalPackage}/bin/hyprctl instances -j | jq ".[].instance" -r); do
+            HYPRLAND_INSTANCE_SIGNATURE=$i ${cfg.finalPackage}/bin/hyprctl reload config-only
           done
         )
       '';

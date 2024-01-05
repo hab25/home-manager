@@ -84,6 +84,7 @@ import nmt {
     ./modules/programs/git
     ./modules/programs/git-cliff
     ./modules/programs/gpg
+    ./modules/programs/gradle
     ./modules/programs/granted
     ./modules/programs/helix
     ./modules/programs/himalaya
@@ -135,8 +136,10 @@ import nmt {
     ./modules/programs/rtx
     ./modules/programs/ruff
     ./modules/programs/sagemath
+    ./modules/programs/sapling
     ./modules/programs/sbt
     ./modules/programs/scmpuff
+    ./modules/programs/sftpman
     ./modules/programs/sioyek
     ./modules/programs/sm64ex
     ./modules/programs/ssh
@@ -178,6 +181,7 @@ import nmt {
     ./modules/programs/autorandr
     ./modules/programs/awscli
     ./modules/programs/beets  # One test relies on services.mpd
+    ./modules/programs/bemenu
     ./modules/programs/borgmatic
     ./modules/programs/boxxy
     ./modules/programs/firefox
@@ -186,6 +190,7 @@ import nmt {
     ./modules/programs/getmail
     ./modules/programs/gnome-terminal
     ./modules/programs/hexchat
+    ./modules/programs/i3blocks
     ./modules/programs/i3status-rust
     ./modules/programs/imv
     ./modules/programs/kodi
@@ -233,6 +238,7 @@ import nmt {
     ./modules/services/mpd
     ./modules/services/mpd-mpris
     ./modules/services/mpdris2
+    ./modules/services/osmscout-server
     ./modules/services/pantalaimon
     ./modules/services/parcellite
     ./modules/services/pass-secret-service
@@ -244,6 +250,7 @@ import nmt {
     ./modules/services/recoll
     ./modules/services/redshift-gammastep
     ./modules/services/screen-locker
+    ./modules/services/signaturepdf
     ./modules/services/swayidle
     ./modules/services/swayosd
     ./modules/services/sxhkd
