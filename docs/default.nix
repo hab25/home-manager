@@ -8,8 +8,8 @@
 let
 
   nmdSrc = fetchTarball {
-    url = "https://rycee.net/nmd.tar.gz";
-    sha256 = "123pvsnwnha0zivk77yzdvqakn96l17n8lwa78s2h1njlgkw0ng2";
+    url = "https://git.sr.ht/~rycee/nmd/archive/v0.5.0.tar.gz";
+    sha256 = "0hnd86jd19zb5j3hmpwmdmdiasg65lgahqv7n8frl9p1vdqz6z67";
   };
 
   nmd = import nmdSrc {

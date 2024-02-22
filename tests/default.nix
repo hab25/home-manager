@@ -4,10 +4,9 @@ let
 
   lib = import ../modules/lib/stdlib-extended.nix pkgs.lib;
 
-  nmt = fetchTarball {
-    url =
-      "https://gitlab.com/api/v4/projects/rycee%2Fnmt/repository/archive.tar.gz?sha=4df00c569b1badfedffecd7ccd60f794550486db";
-    sha256 = "1cyly1zazgj8z6bazml4js7lqaqvpp8lw045aqchlpvp42bl1lp4";
+  nmtSrc = fetchTarball {
+    url = "https://git.sr.ht/~rycee/nmt/archive/v0.5.1.tar.gz";
+    sha256 = "0qhn7nnwdwzh910ss78ga2d00v42b0lspfd7ybl61mpfgz3lmdcj";
   };
 
   modules = import ../modules/modules.nix {
@@ -41,9 +40,7 @@ let
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
   isLinux = pkgs.stdenv.hostPlatform.isLinux;
 
-in
-
-import nmt {
+in import nmtSrc {
   inherit lib pkgs modules;
   testedAttrPath = [ "home" "activationPackage" ];
   tests = builtins.foldl' (a: b: a // (import b)) { } ([
