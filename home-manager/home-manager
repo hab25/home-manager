@@ -680,8 +680,6 @@ function doBuild() {
             --attr activationPackage \
         || return
     fi
-
-    presentNews
 }
 
 function doRepl() {
@@ -838,10 +836,6 @@ function doSwitch() {
     esac
 
     "$activateScript" --driver-version 1 || return
-
-    if [[ $action == 'switch' || $action == 'test' ]]; then
-        presentNews
-    fi
 }
 
 function doListGens() {
