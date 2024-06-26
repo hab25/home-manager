@@ -630,8 +630,6 @@ function doBuild() {
             --attr activationPackage \
         || return
     fi
-
-    presentNews
 }
 
 function doSwitch() {
@@ -658,8 +656,6 @@ function doSwitch() {
             --attr activationPackage \
             && "$generation/activate" || return
     fi
-
-    presentNews
 }
 
 function doListGens() {
