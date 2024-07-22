@@ -624,8 +624,8 @@ in
             LIST_CMD="nix profile list"
             REMOVE_CMD_SYNTAX='nix profile remove {number | store path}'
           else
-            INSTALL_CMD="nix-env -i"
-            INSTALL_CMD_ACTUAL="run nix-env -i"
+            INSTALL_CMD="nix-env -i --option pure-eval false"
+            INSTALL_CMD_ACTUAL="run nix-env -i --option pure-eval false"
             LIST_CMD="nix-env -q"
             REMOVE_CMD_SYNTAX='nix-env -e {package name}'
           fi
