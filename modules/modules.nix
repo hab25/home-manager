@@ -103,6 +103,7 @@ let
     ./programs/getmail.nix
     ./programs/gh.nix
     ./programs/gh-dash.nix
+    ./programs/ghostty.nix
     ./programs/git-cliff.nix
     ./programs/git-credential-oauth.nix
     ./programs/git.nix
@@ -143,6 +144,7 @@ let
     ./programs/khard.nix
     ./programs/kitty.nix
     ./programs/kodi.nix
+    ./programs/kubecolor.nix
     ./programs/lazygit.nix
     ./programs/ledger.nix
     ./programs/less.nix
@@ -313,6 +315,7 @@ let
     ./services/gpg-agent.nix
     ./services/grobi.nix
     ./services/gromit-mpx.nix
+    ./services/home-manager-auto-expire.nix
     ./services/home-manager-auto-upgrade.nix
     ./services/hound.nix
     ./services/hypridle.nix
@@ -412,6 +415,7 @@ let
     ./systemd.nix
     ./targets/darwin
     ./targets/generic-linux.nix
+    ./wayland.nix
     ./xresources.nix
     ./xsession.nix
     ./misc/nix.nix

@@ -1827,6 +1827,67 @@ in {
           as systemd services.
         '';
       }
+
+      {
+        time = "2024-12-06T10:03:58+00:00";
+        message = ''
+          A new module is available: 'programs.kubecolor'.
+
+          Kubecolor is a kubectl wrapper used to add colors to your kubectl
+          output.
+        '';
+      }
+
+      {
+        time = "2024-12-08T17:22:13+00:00";
+        condition = let
+          usingMbsync = any (a: a.mbsync.enable)
+            (attrValues config.accounts.email.accounts);
+        in usingMbsync;
+        message = ''
+          isync/mbsync 1.5.0 has changed several things.
+
+          isync gained support for using $XDG_CONFIG_HOME, and now places
+          its config file in '$XDG_CONFIG_HOME/isyncrc'.
+
+          isync changed the configuration options SSLType and SSLVersion to
+          TLSType and TLSVersion respectively.
+
+          All instances of
+          'accounts.email.accounts.<account-name>.mbsync.extraConfig.account'
+          that use 'SSLType' or 'SSLVersion' should be replaced with 'TLSType'
+          or 'TLSVersion', respectively.
+
+          TLSType options are unchanged.
+
+          TLSVersions has a new syntax, requiring a change to the Nix syntax.
+          Old Syntax: SSLVersions = [ "TLSv1.3" "TLSv1.2" ];
+          New Syntax: TLSVersions = [ "+1.3" "+1.2" "-1.1" ];
+          NOTE: The minus symbol means to NOT use that particular TLS version.
+        '';
+      }
+
+      {
+        time = "2025-01-01T23:16:35+00:00";
+        message = ''
+          A new module is available: 'programs.ghostty'.
+
+          Ghostty is a terminal emulator that differentiates itself by being
+          fast, feature-rich, and native. While there are many excellent
+          terminal emulators available, they all force you to choose between
+          speed, features, or native UIs. Ghostty provides all three.
+        '';
+      }
+
+      {
+        time = "2025-04-02T00:00:00+00:00";
+        message = ''
+          A new service is available: 'services.home-manager.autoExpire'.
+
+          A service that allow to automatically expire (and optionally clean-up
+          Nix's store) old Home-Manager generations.
+        '';
+      }
     ];
   };
 }

@@ -79,6 +79,7 @@ in import nmtSrc {
     ./modules/programs/gallery-dl
     ./modules/programs/gh
     ./modules/programs/gh-dash
+    ./modules/programs/ghostty
     ./modules/programs/git
     ./modules/programs/git-cliff
     ./modules/programs/git-credential-oauth
@@ -98,6 +99,7 @@ in import nmtSrc {
     ./modules/programs/khal
     ./modules/programs/khard
     ./modules/programs/kitty
+    ./modules/programs/kubecolor
     ./modules/programs/ledger
     ./modules/programs/less
     ./modules/programs/lf
@@ -250,6 +252,7 @@ in import nmtSrc {
     ./modules/services/git-sync
     ./modules/services/glance
     ./modules/services/gromit-mpx
+    ./modules/services/home-manager-auto-expire
     ./modules/services/home-manager-auto-upgrade
     ./modules/services/hypridle
     ./modules/services/hyprpaper
